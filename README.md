@@ -81,5 +81,5 @@ docker build -t <nome immagine> <path> --platform=linux/arm64/v8
 Prima di compilare il nodo ricordarsi di fare il source delle variabili di ambiente:
 
 ```bash
-source ./install/setupt.bash && source /opt/ros/humble/setup.bash
+source ./install/setup.bash && source /opt/ros/humble/setup.bash
 ```
