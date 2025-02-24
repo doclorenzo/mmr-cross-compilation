@@ -1,7 +1,7 @@
 # Documentazione Dockerfile per Cross-Compilazione
 
 ---
-
+N.B: PER UTLIIZZARE IL DOCKERFILE BISOGNA TROVARSI NELLA CARTELLA CHE CONTIENE mmr-kria-drive, oppure modifica il dockerfile alla riga di "COPY" e metti il percorso 
 è stato creato un Dockerfile (il quale crea un immagine docker) per lanciare un container di questa immagine per cross-compilare i nodi ROS2.
 
 ## Motivazione
