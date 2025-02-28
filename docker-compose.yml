@@ -1,9 +1,9 @@
 services:
   mmr-cross-compile-container:
-    image: mmr-cross-compile-3
+    image: mmr-cross-compile
     platform: linux/arm64
     build:
-      dockerfile: ./dockerfile
+      dockerfile: ./Dockerfile
     volumes:
       - ${SRC_PATH}:/home/mmr-kria-drive
     working_dir: /home/mmr-kria-drive
