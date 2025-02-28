@@ -1,10 +1,20 @@
 # Documentazione Dockerfile per Cross-Compilazione
 
 ---
-N.B: PER UTLIIZZARE IL DOCKERFILE BISOGNA TROVARSI NELLA CARTELLA CHE CONTIENE mmr-kria-drive, oppure modifica il dockerfile alla riga di "COPY" e metti il percorso 
 
+## Usage
+Place yourself in the folder containing the docker-compose.yml (this repository root directory).
 
-è stato creato un Dockerfile (il quale crea un immagine docker) per lanciare un container di questa immagine per cross-compilare i nodi ROS2.
+Run:
+```SRC_PATH=<mmr-kria-drive-path> docker compose run --rm mmr-cross-compile-container```
+
+Set `mmr-kria-drive-path` to the relative or absolute path of the `mmr-kria-drive` source code.
+
+Once inside the container, run `rosdep install --from-paths src --rosdistro humble --ignore-src -y --skip-keys "fastcdr rti-connext-dds-6.0.1 urdfdom_headers"` to install additional dependencies.
+
+È stato creato un Dockerfile (il quale crea un immagine docker) per lanciare un container di questa immagine per cross-compilare i nodi ROS2.
+
+---
 
 ## Motivazione
 
@@ -50,21 +60,24 @@ Punti importanti
 - **ros-humble-***: tutti i pacchetti ros-humble-* sono le librerie utilizzate all’interno dei nodi ros2, in particolare in “canbus_bridge” e “canopen_bridge” al momento della scrittura di questa documentazione. Se compilando questi nodi viene generato un errore riguardate un pacchetto mancante, prima provare a fare il source delle variabili di ambiente (source ./install/setupt.bash && source /opt/ros/humble/setup.bash), se l’errore persiste allora installa il pacchetto richiesto a mano.
 
 > **Suggerimento**: esegui “apt search <nome del pacchetto>” e scarica quello che ha questa formattazione “ros-humble-<nome del pacchetto>”
-> 
+>
 
-## Creazione Immagine
+## Manual Procedure
+If u are not willing to use the compose-based proceudre, u can always opt for the manual procedure which involves build and interactive execution of the image.
+
+### Creazione Immagine
 
 ```bash
-docker build -t <nome immagine> <path> --platform=linux/arm64/v8
+docker build -t mmr-cross-compile <path> --platform=linux/arm64/v8
 ```
 
 - **nome immagine**: è il nome che vogliamo dare all’immagine che creerà il container per la corss-compilazione
 - **path** : è il path alla CARTELLA che contiene il Dockerfile
 
-## Creazione Container
+### Creazione Container
 
 ```bash
- docker run --platform=linux/arm64/v8 --rm -it --volume=mmr-kria-drive:/home <nome immagine> 
+ docker run --platform=linux/arm64/v8 --rm -it --volume=<mmr-kria-drive-path>:/home/mmr-kria-drive <nome immagine> 
 
 ```
 
