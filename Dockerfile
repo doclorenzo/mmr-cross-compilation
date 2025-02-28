@@ -20,7 +20,5 @@ RUN apt install -y ros-humble-std-msgs
 RUN apt install -y ros-humble-can-msgs
 RUN rosdep init
 RUN rosdep update --rosdistro humble
-COPY mmr-kria-drive/ /home
-RUN rosdep install --from-paths /home/src --rosdistro humble --ignore-src -y --skip-keys "fastcdr rti-connext-dds-6.0.1 urdfdom_headers"
 RUN apt install ros-humble-sensor-msgs
 
